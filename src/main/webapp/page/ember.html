@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>ToDo's: Ember.js</title>
+<link th:href="@{/css/todo.css}" rel="stylesheet" />
+<script th:src="@{/script/jquery.js}"></script>
+<script th:src="@{/script/handlebars.js}"></script>
+<script th:src="@{/script/ember.js}"></script>
+<script th:src="@{/script/ember-data.js}"></script>
+<script th:src="@{/script/ember/application.js}"></script>
+<script th:src="@{/script/ember/router.js}"></script>
+<script th:src="@{/script/ember/controller/task.js}"></script>
+<script th:src="@{/script/ember/model/task.js}"></script>
+<script th:src="@{/script/ember/view/task.js}"></script>
+</head>
+<body>
+  <script type="text/x-handlebars" data-template-name="tasks" th:inline="text">
+    <section id="taskapp">
+      <header id="header">
+        <h1>todos</h1>
+        {{input type="text" id="new-task" placeholder="What needs to be done?" value=newTitle action="createTask"}}
+      </header>
+
+      <section id="main">
+        <ul id="task-list"
+          th:with="open='&lt;li  {{bind-attr class=\'complete:completed isEditing:editing\'}}&gt;',
+                    close='&lt;/li&gt;',
+                    label='&lt;label {{action \'editTask\' on=\'doubleClick\'}}&gt;{{title}}&lt;/label&gt;',
+                    button='&lt;button {{action \'removeTask\'}} class=\'destroy\'&gt;&lt;/button&gt;'">
+          {{#each itemController="task"}}
+          [[${open}]]
+            {{#if isEditing}}
+            {{edit-task class="edit" value=title focus-out="acceptChanges" insert-newline="acceptChanges"}}
+            {{else}}
+            {{input checked=isComplete class="toggle" type="checkbox"}}
+            [[${label}]]
+            [[${button}]]
+            {{/if}}
+          [[${close}]]
+          {{/each}}
+        </ul>
+
+        <input type="checkbox" id="toggle-all" />
+      </section>
+
+      <footer id="footer">
+        <span id="task-count">
+          <strong>{{remaining}}</strong> {{inflection}} left
+        </span>
+      </footer>
+    </section>
+
+    <footer id="info">
+      <p>Double-click to edit a todo</p>
+    </footer>
+  </script>
+</body>
+</html>

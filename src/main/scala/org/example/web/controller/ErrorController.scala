@@ -4,13 +4,13 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
 /**
- * Home page controller.
+ * Error controller.
  */
 @Controller
-class HomeController {
+class ErrorController {
   /**
-   * Displays the home page.
+   * Displays the access-denied page.
    */
-  @RequestMapping(Array("/"))
-  def show = "home"
+  @RequestMapping(Array("/403"))
+  def denied = "403"
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Login</title>
+<link th:href="@{/css/todo.css}" rel="stylesheet" />
+</head>
+<body>
+  <section id="taskapp">
+    <header id="header">
+      <h1>Login</h1>
+    </header>
+
+    <section id="main">
+      <form th:action="@{/login/submit}" method="POST">
+        <fieldset>
+          <ul id="task-list">
+            <li>
+              <input class="edit" name="username" type="text" value="username" />
+              <label>Username</label>
+            </li>
+            <li>
+              <input class="edit" name="password" type="password" value="password" />
+              <label>Password</label>
+            </li>
+            <li>
+              <input type="submit" value="Login" />
+            </li>
+          </ul>
+        </fieldset>
+      </form>
+    </section>
+  </section>
+</body>
+</html>

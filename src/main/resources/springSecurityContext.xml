@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+  <bean class="org.example.web.security.DummyAuthenticationProvider" id="authenticationProvider" />
+  <security:global-method-security jsr250-annotations="enabled" pre-post-annotations="enabled" secured-annotations="enabled" />
+  <security:authentication-manager erase-credentials="false">
+    <security:authentication-provider ref="authenticationProvider" />
+  </security:authentication-manager>
+  <security:http pattern="/css/**" security="none" />
+  <security:http pattern="/image/**" security="none" />
+  <security:http pattern="/script/**" security="none" />
+  <security:http access-denied-page="/error/403" auto-config="true" use-expressions="true">
+    <security:form-login always-use-default-target="false" authentication-failure-url="/login/failure?status=error" default-target-url="/"
+      login-page="/login" login-processing-url="/login/submit" password-parameter="password" username-parameter="username" />
+    <security:headers>
+      <security:cache-control />
+      <security:content-type-options />
+      <security:frame-options policy="SAMEORIGIN" />
+      <security:hsts />
+      <security:xss-protection />
+    </security:headers>
+    <security:intercept-url access="permitAll" pattern="/login/**" />
+    <security:intercept-url access="isAuthenticated()" pattern="/**" />
+    <security:logout delete-cookies="true" invalidate-session="true" logout-url="/logout" />
+  </security:http>
+</beans>

@@ -43,5 +43,6 @@
     </mvc:message-converters>
   </mvc:annotation-driven>
   <mvc:resources location="/css/" mapping="/css/**" />
+  <mvc:resources location="/image/" mapping="/image/**" />
   <mvc:resources location="/script/" mapping="/script/**" />
 </beans>

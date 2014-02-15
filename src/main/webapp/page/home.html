@@ -15,7 +15,9 @@
 <script th:src="@{/script/ember/view/task.js}"></script>
 </head>
 <body>
-  <script type="text/x-handlebars" data-template-name="tasks" th:inline="text">
+  <script type="text/x-handlebars" data-template-name="tasks">
+	<![CDATA[
+	<!-- -->
     <section id="taskapp">
       <header id="header">
         <h1>todos</h1>
@@ -23,21 +25,17 @@
       </header>
 
       <section id="main">
-        <ul id="task-list"
-          th:with="open='&lt;li  {{bind-attr class=\'complete:completed isEditing:editing\'}}&gt;',
-                    close='&lt;/li&gt;',
-                    label='&lt;label {{action \'editTask\' on=\'doubleClick\'}}&gt;{{title}}&lt;/label&gt;',
-                    button='&lt;button {{action \'removeTask\'}} class=\'destroy\'&gt;&lt;/button&gt;'">
+        <ul id="task-list">
           {{#each itemController="task"}}
-          [[${open}]]
+          <li {{bind-attr class="complete:completed isEditing:editing"}}>
             {{#if isEditing}}
             {{edit-task class="edit" value=title focus-out="acceptChanges" insert-newline="acceptChanges"}}
             {{else}}
             {{input checked=isComplete class="toggle" type="checkbox"}}
-            [[${label}]]
-            [[${button}]]
+            <label {{action "editTask" on="doubleClick"}}>{{title}}</label>
+            <button {{action "removeTask"}} class="destroy"></button>
             {{/if}}
-          [[${close}]]
+          </li>
           {{/each}}
         </ul>
 
@@ -54,6 +52,7 @@
     <footer id="info">
       <p>Double-click to edit a todo</p>
     </footer>
+	<!-- ]]> -->
   </script>
 </body>
 </html>
